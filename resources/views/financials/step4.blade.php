@@ -27,6 +27,7 @@
                        placeholder="Year -1" {{-- required --}}
                        class="px-4 py-2 border rounded-md w-full text-right" 
                        {{ str_contains(strtolower($resultat->label), 'total') || str_contains(strtolower($resultat->label), 'résultat') ? 'disabled' : ''}}
+                       data-role="{{ $resultats->role }}"
                        />
 
                 <input type="text" name="actifs[{{ $resultat->id }}][n]" 
@@ -34,6 +35,7 @@
                        placeholder="Current Year" {{-- required --}}
                        class="px-4 py-2 border rounded-md w-full text-right" 
                        {{ str_contains(strtolower($resultat->label), 'total') || str_contains(strtolower($resultat->label), 'résultat')  ? 'disabled' : ''}}
+                       data-role="{{ $resultats->role }}"
                        />
             </div>
         @endforeach

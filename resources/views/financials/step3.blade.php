@@ -39,6 +39,7 @@
                 placeholder="Year -1" {{-- required --}}
                 class="px-4 py-2 border rounded-md w-full text-right" 
                 {{ str_contains(strtolower($capital->label), 'total') ? 'disabled' : ''}}
+                data-role="{{ $capital->role }}"
                 />
 
             <input type="text" name="capitaux[{{ $capital->id }}][current_year]" 
@@ -46,6 +47,7 @@
                 placeholder="Current Year" {{-- required --}}
                 class="px-4 py-2 border rounded-md w-full text-right" 
                 {{ str_contains(strtolower($capital->label), 'total') ? 'disabled' : ''}}
+                data-role="{{ $capital->role }}"
                 />
         </div>
     @endforeach
@@ -69,6 +71,7 @@
                 placeholder="Year -1" {{-- required --}}
                 class="px-4 py-2 border rounded-md w-full text-right" 
                 {{ str_contains(strtolower($passif->label), 'total') ? 'disabled' : ''}}
+                data-role="{{ $passif->role }}"
                 />
 
             <input type="text" name="passifs[{{ $passif->id }}][current_year]" 
@@ -76,6 +79,7 @@
                 placeholder="Current Year" {{-- required --}}
                 class="px-4 py-2 border rounded-md w-full text-right" 
                 {{ str_contains(strtolower($passif->label), 'total') ? 'disabled' : ''}}
+                data-role="{{ $passif->role }}"
                 />
         </div>
     @endforeach
