@@ -13,7 +13,7 @@ class FinancialStatementController extends Controller {
         $actifs = FsEntryPoint::where('category', 'like', 'Actifs%')->orderBy('id', 'asc')->get();
         $capitaux = FsEntryPoint::where('category', 'like', 'Capitaux%')->orderBy('id', 'asc')->get();
         $passifs = FsEntryPoint::where('category', 'like', '%Passifs%')->orderBy('id', 'asc')->get();
-        $resultats = FsEntryPoint::where('category', 'like', 'Résulat de%')->orderBy('id', 'asc')->get();
+        $resultats = FsEntryPoint::where('category', 'like', 'Résultat de%')->orderBy('id', 'asc')->get();
 
         return view('financial-statement', compact('actifs', 'capitaux', 'passifs', 'resultats'));
     }

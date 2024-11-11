@@ -20,5 +20,6 @@
     @vite('resources/js/stepper_conf.js')
     @vite('resources/js/calc_actifs.js')
     @vite('resources/js/calc_passifs.js')
+    @vite('resources/js/etat_resultat.js')
 </body>
 </html>

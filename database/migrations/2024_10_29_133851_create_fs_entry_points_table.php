@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('category');  // 'Actifs' or 'Passifs'
             $table->string('role');
             $table->string('decoration')->nullable();
+            $table->string('type')->nullable();
             $table->timestamps();
         });
     }

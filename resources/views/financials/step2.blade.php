@@ -35,6 +35,8 @@
                        class="px-4 py-2 border rounded-md w-full text-right" 
                        {{ str_contains(strtolower($actif->label), 'total') ? 'disabled' : ''}}
                        data-role="{{ $actif->role }}"
+                       data-type="{{ $actif->type }}"
+                       data-year="n-1"
                        />
 
                 <input type="text" name="actifs[{{ $actif->id }}][n]" 
@@ -43,6 +45,8 @@
                        class="px-4 py-2 border rounded-md w-full text-right" 
                        {{ str_contains(strtolower($actif->label), 'total') ? 'disabled' : ''}}
                        data-role="{{ $actif->role }}"
+                       data-type="{{ $actif->type }}"
+                       data-year="n"
                        />
                 
                 @php
@@ -60,7 +64,7 @@
                                id="actifs_{{ strtolower(str_replace(' ', '_', $actif->label)) }}_n_result"
                                placeholder="Current Year" disabled
                                class="px-4 py-2 border bg-gray-100 rounded-md w-full text-right col-start-3"
-                                data-role="{{ $actif->role }}"
+                               data-role="{{ $actif->role }}"
                        />
                     </div>
                 @endif
