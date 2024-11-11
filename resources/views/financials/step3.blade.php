@@ -1,0 +1,83 @@
+@php
+    $previousCategory = null;
+    $firstEntry = true;
+@endphp
+
+<h3 class="text-2xl font-bold mb-6">Capitaux Propres & Passifs</h3>
+<section>
+    <div class="grid grid-cols-1 gap-y-8">
+
+    @foreach($capitaux as $capital)
+        @if($capital->category === "Capitaux Propres et Passifs")
+            @php
+                break;
+            @endphp
+        @endif
+        @if ($previousCategory !== $capital->category)
+            <div class="grid grid-cols-3 items-center gap-x-4">
+                <h3 class="text-lg font-semibold mt-8">{{ $capital->category }}</h3>
+                @if($firstEntry)
+                    <h3 class="text-lg font-semibold mt-8 flex items-center justify-center">n-1</h3>
+                    <h3 class="text-lg font-semibold mt-8 flex items-center justify-center">n</h3>
+                @endif
+            </div>
+            @if ($previousCategory === null)
+                <h4 class="font-medium text-gray-600">Capitaux Propres</h4>
+            @endif
+            @php
+                $firstEntry = false;
+                $previousCategory = $capital->category;
+            @endphp
+        @endif
+
+
+        <div class="grid grid-cols-3 items-center gap-x-4">
+            <label class="font-medium text-gray-700">{{ $capital->label }}</label>
+            
+            <input type="text" name="capitaux[{{ $capital->id }}][previous_year]" 
+                id="capitaux_{{ strtolower(str_replace([' ', '\''], ['_', ''], $capital->label)) }}_n-1"
+                placeholder="Year -1" {{-- required --}}
+                class="px-4 py-2 border rounded-md w-full text-right" 
+                {{ str_contains(strtolower($capital->label), 'total') ? 'disabled' : ''}}
+                />
+
+            <input type="text" name="capitaux[{{ $capital->id }}][current_year]" 
+                id="capitaux_{{ strtolower(str_replace([' ', '\''], ['_', ''], $capital->label)) }}_n"
+                placeholder="Current Year" {{-- required --}}
+                class="px-4 py-2 border rounded-md w-full text-right" 
+                {{ str_contains(strtolower($capital->label), 'total') ? 'disabled' : ''}}
+                />
+        </div>
+    @endforeach
+    
+    @foreach($passifs as $passif)
+        @if ($previousCategory !== $passif->category)
+            <h3 class="text-lg font-semibold mt-8">{{ $passif->category }}</h3>
+            @if ($previousCategory === null)
+                <h4 class="font-medium text-gray-600">Passifs</h4>
+            @endif
+            @php
+                $previousCategory = $passif->category;
+            @endphp
+        @endif
+
+        <div class="grid grid-cols-3 items-center gap-x-4">
+            <label class="font-medium text-gray-700">{{ $passif->label }}</label>
+            
+            <input type="text" name="passifs[{{ $passif->id }}][previous_year]" 
+                id="passifs_{{ strtolower(str_replace(' ', '_', $passif->label)) }}_n-1"
+                placeholder="Year -1" {{-- required --}}
+                class="px-4 py-2 border rounded-md w-full text-right" 
+                {{ str_contains(strtolower($passif->label), 'total') ? 'disabled' : ''}}
+                />
+
+            <input type="text" name="passifs[{{ $passif->id }}][current_year]" 
+                id="passifs_{{ strtolower(str_replace(' ', '_', $passif->label)) }}_n"
+                placeholder="Current Year" {{-- required --}}
+                class="px-4 py-2 border rounded-md w-full text-right" 
+                {{ str_contains(strtolower($passif->label), 'total') ? 'disabled' : ''}}
+                />
+        </div>
+    @endforeach
+    </div>
+</section>
