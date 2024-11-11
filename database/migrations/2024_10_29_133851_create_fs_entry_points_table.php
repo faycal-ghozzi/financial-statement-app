@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('fs_entry_points', function (Blueprint $table) {
             $table->id();
             $table->string('label');
-            $table->string('type')->default('number');
             $table->string('category');  // 'Actifs' or 'Passifs'
-            $table->unsignedSmallInteger('rank');
+            $table->string('role');
+            $table->string('decoration')->nullable();
             $table->timestamps();
         });
     }
