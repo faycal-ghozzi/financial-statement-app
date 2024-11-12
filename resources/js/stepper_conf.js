@@ -19,11 +19,11 @@ $(document).ready(function() {
         },
         onFinishing: function (event, currentIndex) {
             console.log('finsihing');
-            const total_actifs_n_1 = parseFloat(cleanNumber($('#actifs_total_des_actifs_n-1').val())) || 0;
-            const total_actifs_n = parseFloat(cleanNumber($('#actifs_total_des_actifs_n').val())) || 0;
+            const total_actifs_n_1 = parseFloat(cleanNumber($('#actifs_total_des_actifs_n-1').val().replace(",", "."))) || 0;
+            const total_actifs_n = parseFloat(cleanNumber($('#actifs_total_des_actifs_n').val().replace(",", "."))) || 0;
             
-            const total_passifs_n_1 = parseFloat(cleanNumber($('#passifs_total_des_capitaux_propres_et_passifs_n-1').val())) || 0;
-            const total_passifs_n = parseFloat(cleanNumber($('#passifs_total_des_capitaux_propres_et_passifs_n').val())) || 0;
+            const total_passifs_n_1 = parseFloat(cleanNumber($('#passifs_total_des_capitaux_propres_et_passifs_n-1').val().replace(",", "."))) || 0;
+            const total_passifs_n = parseFloat(cleanNumber($('#passifs_total_des_capitaux_propres_et_passifs_n').val().replace(",", "."))) || 0;
 
             if(total_actifs_n !== total_passifs_n){
                 alert('veillez verifier le bilan de l\'année courante');
