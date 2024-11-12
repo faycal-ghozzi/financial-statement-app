@@ -1,9 +1,5 @@
 import { formatNumber, cleanNumber, formatInputs } from './utils';
 
-const ANC_IDS = '#actifs_immobilisations_incorporelles_n-1, #actifs_immobilisations_incorporelles_n, #actifs_amortissements_-_immobilisations_incorporelles_n-1,  #actifs_amortissements_-_immobilisations_incorporelles_n, #actifs_immobilisations_corporelles_n-1, #actifs_immobilisations_corporelles_n, #actifs_amortissements_-_immobilisations_corporelles_n-1, #actifs_amortissements_-_immobilisations_corporelles_n, #actifs_immobilisations_financières_n-1, #actifs_immobilisations_financières_n, #actifs_provisions_-_immobilisations_financières_n-1, #actifs_provisions_-_immobilisations_financières_n'; 
-
-const AC_IDS = '#actifs_stocks_n-1, #actifs_stocks_n, #actifs_provisions_-_stocks_n-1, #actifs_provisions_-_stocks_n, #actifs_clients_et_comptes_rattachés_n-1, #actifs_clients_et_comptes_rattachés_n, #actifs_provisions_-_clients_et_comptes_rattachés_n-1, #actifs_provisions_-_clients_et_comptes_rattachés_n, #actifs_autres_actifs_courants_n-1, #actifs_autres_actifs_courants_n, #actifs_placements_et_autres_actifs_financiers_n-1, #actifs_placements_et_autres_actifs_financiers_n, #actifs_liquidités_et_équivalents_de_liquidités_n-1, #actifs_liquidités_et_équivalents_de_liquidités_n';
-
 $(document).ready(function() {
     calcImmobilisations('incorporelles')
     calcImmobilisations('corporelles')

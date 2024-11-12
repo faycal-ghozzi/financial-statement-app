@@ -44,7 +44,7 @@ class EntryPointsSeeder extends Seeder
             ['label' => 'Réserves spéciales de réévaluation', 'category' => 'Capitaux propres' , 'role' => 'Capitaux propres', 'decoration' => null, 'type' => null], 
             ['label' => 'Résultats reportés', 'category' => 'Capitaux propres' , 'role' => 'Capitaux propres', 'decoration' => null, 'type' => null], 
             ['label' => 'Modifications comptables', 'category' => 'Capitaux propres' , 'role' => 'Capitaux propres', 'decoration' => null, 'type' => null],
-            ['label' => 'Total des capitaux propres avant résultat de l\'exercice', 'category' => 'Capitaux propres' , 'role' => 'Capitaux propres', 'decoration' => 'bold', 'type' => null], 
+            ['label' => 'Total des capitaux propres avant résultat de l\'exercice', 'category' => 'Capitaux propres' , 'role' => 'Capitaux propres - total av re', 'decoration' => 'bold', 'type' => null], 
             ['label' => 'Résultat de l\'exercice', 'category' => 'Capitaux propres' , 'role' => 'Capitaux propres', 'decoration' => null, 'type' => null], 
             ['label' => 'Total des capitaux propres après résultat de l\'exercice', 'category' => 'Capitaux propres' , 'role' => 'Capitaux propres - total', 'decoration' => 'stripe', 'type' => null],
             // Passifs Non Courants

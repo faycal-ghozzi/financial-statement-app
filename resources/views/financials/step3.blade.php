@@ -40,6 +40,7 @@
                 class="px-4 py-2 border rounded-md w-full text-right" 
                 {{ str_contains(strtolower($capital->label), 'total') ? 'disabled' : ''}}
                 data-role="{{ $capital->role }}"
+                data-year="n-1"
                 />
 
             <input type="text" name="capitaux[{{ $capital->id }}][current_year]" 
@@ -48,6 +49,7 @@
                 class="px-4 py-2 border rounded-md w-full text-right" 
                 {{ str_contains(strtolower($capital->label), 'total') ? 'disabled' : ''}}
                 data-role="{{ $capital->role }}"
+                data-year="n"
                 />
         </div>
     @endforeach
@@ -72,6 +74,7 @@
                 class="px-4 py-2 border rounded-md w-full text-right" 
                 {{ str_contains(strtolower($passif->label), 'total') ? 'disabled' : ''}}
                 data-role="{{ $passif->role }}"
+                data-year="n-1"
                 />
 
             <input type="text" name="passifs[{{ $passif->id }}][current_year]" 
@@ -80,6 +83,7 @@
                 class="px-4 py-2 border rounded-md w-full text-right" 
                 {{ str_contains(strtolower($passif->label), 'total') ? 'disabled' : ''}}
                 data-role="{{ $passif->role }}"
+                data-year="n"
                 />
         </div>
     @endforeach

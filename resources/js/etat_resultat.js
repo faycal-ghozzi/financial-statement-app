@@ -62,3 +62,26 @@ function calcCharges(){
         $('#resultats_résultat_des_activités_ordinaires_avant_impôt_n').val(formatNumber(sum_n));  
     })
 }
+
+function calcDivers(){
+    $('[data-role^="Activites ordinaires"], [data-role="Charges exploitation"], [data-role="Produits exploitation"]').on('blur', function(){
+
+        // resultats_résultat_dexploitation__n-1
+        
+        let values_n_1 = $('[data-year="n-1"]').map(function() {
+            let value = parseFloat($(this).val().replace(",", ".")) || 0;
+            return $(this).data('role').includes('gains') ? -value : value; 
+        }).get();
+
+        let values_n = $('[data-year="n"]').map(function() {
+            let value = parseFloat($(this).val().replace(",", ".")) || 0;
+            return $(this).data('role').includes('gains') ? -value : value; 
+        }).get();
+        
+        let sum_n_1 = values_n_1.reduce((a, b) => a + b, 0);
+        let sum_n = values_n.reduce((a, b) => a + b, 0);
+
+        $('#resultats_résultat_des_activités_ordinaires_avant_impôt_n-1').val(formatNumber(sum_n_1));
+        $('#resultats_résultat_des_activités_ordinaires_avant_impôt_n').val(formatNumber(sum_n));  
+    })
+}
