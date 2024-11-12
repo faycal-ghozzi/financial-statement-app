@@ -1,7 +1,5 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
-import path from 'path';
-
 
 export default defineConfig({
     plugins: [
@@ -10,14 +8,4 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    resolve: {
-        alias: {
-            $: 'jquery',
-            jQuery: 'jquery',
-            'jquery-steps': path.resolve(__dirname, 'node_modules/jquery-steps/build/jquery.steps.js')
-        }
-    },
-    optimizeDeps: {
-        include: ['jquery', 'jquery-validation'],
-    },
 });
