@@ -7,7 +7,26 @@ export function cleanNumber(value) {
 }
 
 export function formatInputs() {
-    $('input').on('input', function() {
-        this.value = this.value.replace(/[^0-9,.]/g, '');
+    const allowedIds = ["resultats_variation_des_stocks_des_produits_finis_et_des_encours_n-1", "resultats_variation_des_stocks_des_produits_finis_et_des_encours_n"];
+    $('.number').on('input', function() {
+        const $input = $(this);
+        let inputValue = $input.val();
+
+        const allowNegative = allowedIds.includes($input.attr("id"));
+
+        const regex = allowNegative ? /^-?\d*(\.|,)?\d*$/ :/^\d*(\.|,)?\d*$/;
+
+        if(!regex.test(inputValue)){
+            $input.val($input.data("previous") || "");
+        }
+
+        const pointCount = (inputValue.match(/\./g) || []).length;
+        const commaCount = (inputValue.match(/,/g) || []).length;
+
+        if(pointCount > 1 || commaCount > 1 || (pointCount === 1 && commaCount ===1)) {
+            $input.val($input.data("previous") || "");
+            return
+        }
+        $input.data("previous", inputValue);
     });
 }

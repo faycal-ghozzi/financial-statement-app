@@ -37,7 +37,7 @@
             <input type="text" name="capitaux[{{ $capital->id }}][previous_year]" 
                 id="capitaux_{{ strtolower(str_replace([' ', '\''], ['_', ''], $capital->label)) }}_n-1"
                 placeholder="Year -1" {{-- required --}}
-                class="px-4 py-2 border rounded-md w-full text-right" 
+                class="px-4 py-2 border rounded-md w-full text-right number" 
                 {{ str_contains(strtolower($capital->label), 'total') ? 'disabled' : ''}}
                 data-role="{{ $capital->role }}"
                 data-year="n-1"
@@ -46,7 +46,7 @@
             <input type="text" name="capitaux[{{ $capital->id }}][current_year]" 
                 id="capitaux_{{ strtolower(str_replace([' ', '\''], ['_', ''], $capital->label)) }}_n"
                 placeholder="Current Year" {{-- required --}}
-                class="px-4 py-2 border rounded-md w-full text-right" 
+                class="px-4 py-2 border rounded-md w-full text-right number" 
                 {{ str_contains(strtolower($capital->label), 'total') ? 'disabled' : ''}}
                 data-role="{{ $capital->role }}"
                 data-year="n"
@@ -71,7 +71,7 @@
             <input type="text" name="passifs[{{ $passif->id }}][previous_year]" 
                 id="passifs_{{ strtolower(str_replace(' ', '_', $passif->label)) }}_n-1"
                 placeholder="Year -1" {{-- required --}}
-                class="px-4 py-2 border rounded-md w-full text-right" 
+                class="px-4 py-2 border rounded-md w-full text-right number" 
                 {{ str_contains(strtolower($passif->label), 'total') ? 'disabled' : ''}}
                 data-role="{{ $passif->role }}"
                 data-year="n-1"
@@ -80,7 +80,7 @@
             <input type="text" name="passifs[{{ $passif->id }}][current_year]" 
                 id="passifs_{{ strtolower(str_replace(' ', '_', $passif->label)) }}_n"
                 placeholder="Current Year" {{-- required --}}
-                class="px-4 py-2 border rounded-md w-full text-right" 
+                class="px-4 py-2 border rounded-md w-full text-right number" 
                 {{ str_contains(strtolower($passif->label), 'total') ? 'disabled' : ''}}
                 data-role="{{ $passif->role }}"
                 data-year="n"
