@@ -7,7 +7,7 @@ export function cleanNumber(value) {
 }
 
 export function formatInputs() {
-    const allowedIds = ["resultats_variation_des_stocks_des_produits_finis_et_des_encours_n-1", "resultats_variation_des_stocks_des_produits_finis_et_des_encours_n"];
+    const allowedIds = ["resultats_variation_des_stocks_des_produits_finis_et_des_encours_n-1", "resultats_variation_des_stocks_des_produits_finis_et_des_encours_n", "resultats_eléments_extraordinaires_(gains/pertes)_n_1", "resultats_eléments_extraordinaires_(gains/pertes)_n"];
     $('.number').on('input', function() {
         const $input = $(this);
         let inputValue = $input.val();

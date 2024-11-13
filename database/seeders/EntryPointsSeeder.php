@@ -88,8 +88,7 @@ class EntryPointsSeeder extends Seeder
             ['label' => 'Impôt sur les bénéfices', 'category' => 'Résultat de l\'exercice', 'role' => 'Impots', 'decoration' => null, 'type' => null],
             ['label' => 'Résultat des activités ordinaires après impôt', 'category' => 'Résultat de l\'exercice', 'role' => 'Impots - total', 'decoration' => 'stripe', 'type' => null],
 
-            ['label' => 'Eléments extraordinaires (Gains)', 'category' => 'Résultat de l\'exercice', 'role' => 'Elements extraordinaires - gains', 'decoration' => null, 'type' => null],
-            ['label' => 'Eléments extraordinaires (Pertes)', 'category' => 'Résultat de l\'exercice', 'role' => 'Elements extraordinaires - pertes', 'decoration' => null, 'type' => null],
+            ['label' => 'Eléments extraordinaires (Gains/Pertes)', 'category' => 'Résultat de l\'exercice', 'role' => 'Elements extraordinaires', 'decoration' => null, 'type' => null],
 
             ['label' => 'Résultat net de l\'exercice', 'category' => 'Résultat de l\'exercice', 'role' => 'Resultat net', 'decoration' => 'stripe', 'type' => null],
             ['label' => 'Effet des modifications comptables', 'category' => 'Résultat de l\'exercice', 'role' => 'Modifications comptables', 'decoration' => null, 'type' => null],

@@ -30,7 +30,7 @@
                 <label class="font-medium text-gray-700">{{ $actif->label }}</label>
                 
                 <input type="text" name="actifs[{{ $actif->id }}][n-1]"
-                       id="actifs_{{ strtolower(str_replace(' ', '_', $actif->label)) }}_n-1"
+                       id="actifs_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $actif->label)) }}_n-1"
                        placeholder="Year -1" {{-- required --}}
                        class="px-4 py-2 border rounded-md w-full text-right number" 
                        {{ str_contains(strtolower($actif->label), 'total') ? 'disabled' : ''}}
@@ -40,7 +40,7 @@
                        />
 
                 <input type="text" name="actifs[{{ $actif->id }}][n]" 
-                       id="actifs_{{ strtolower(str_replace(' ', '_', $actif->label)) }}_n"
+                       id="actifs_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $actif->label)) }}_n"
                        placeholder="Current Year" {{-- required --}}
                        class="px-4 py-2 border rounded-md w-full text-right number" 
                        {{ str_contains(strtolower($actif->label), 'total') ? 'disabled' : ''}}
@@ -55,13 +55,13 @@
                 @if(in_array($firstWord, ['amortissements', 'provisions']))
                     <div class="grid grid-cols-3 col-span-3 mt-2 gap-x-4">
                         <input type="text" name="actifs[{{ strtolower($actif->label) }} result][n-1]" 
-                               id="actifs_{{ strtolower(str_replace(' ', '_', $actif->label)) }}_n-1_result"
+                               id="actifs_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $actif->label)) }}_n-1_result"
                                placeholder="Year -1" disabled
                                class="px-4 py-2 border bg-gray-100 rounded-md w-full text-right col-start-2 number" 
                                 data-role="{{ $actif->role }}"
                        />
                         <input type="text" name="actifs[{{ strtolower($actif->label) }} result][n]" 
-                               id="actifs_{{ strtolower(str_replace(' ', '_', $actif->label)) }}_n_result"
+                               id="actifs_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $actif->label)) }}_n_result"
                                placeholder="Current Year" disabled
                                class="px-4 py-2 border bg-gray-100 rounded-md w-full text-right col-start-3 number"
                                data-role="{{ $actif->role }}"

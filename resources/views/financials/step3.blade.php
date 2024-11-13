@@ -35,7 +35,7 @@
             <label class="font-medium text-gray-700">{{ $capital->label }}</label>
             
             <input type="text" name="capitaux[{{ $capital->id }}][previous_year]" 
-                id="capitaux_{{ strtolower(str_replace([' ', '\''], ['_', ''], $capital->label)) }}_n-1"
+                id="capitaux_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $capital->label)) }}_n-1"
                 placeholder="Year -1" {{-- required --}}
                 class="px-4 py-2 border rounded-md w-full text-right number" 
                 {{ str_contains(strtolower($capital->label), 'total') ? 'disabled' : ''}}
@@ -44,7 +44,7 @@
                 />
 
             <input type="text" name="capitaux[{{ $capital->id }}][current_year]" 
-                id="capitaux_{{ strtolower(str_replace([' ', '\''], ['_', ''], $capital->label)) }}_n"
+                id="capitaux_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $capital->label)) }}_n"
                 placeholder="Current Year" {{-- required --}}
                 class="px-4 py-2 border rounded-md w-full text-right number" 
                 {{ str_contains(strtolower($capital->label), 'total') ? 'disabled' : ''}}
@@ -69,7 +69,7 @@
             <label class="font-medium text-gray-700">{{ $passif->label }}</label>
             
             <input type="text" name="passifs[{{ $passif->id }}][previous_year]" 
-                id="passifs_{{ strtolower(str_replace(' ', '_', $passif->label)) }}_n-1"
+                id="passifs_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $passif->label)) }}_n-1"
                 placeholder="Year -1" {{-- required --}}
                 class="px-4 py-2 border rounded-md w-full text-right number" 
                 {{ str_contains(strtolower($passif->label), 'total') ? 'disabled' : ''}}
@@ -78,7 +78,7 @@
                 />
 
             <input type="text" name="passifs[{{ $passif->id }}][current_year]" 
-                id="passifs_{{ strtolower(str_replace(' ', '_', $passif->label)) }}_n"
+                id="passifs_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $passif->label)) }}_n"
                 placeholder="Current Year" {{-- required --}}
                 class="px-4 py-2 border rounded-md w-full text-right number" 
                 {{ str_contains(strtolower($passif->label), 'total') ? 'disabled' : ''}}
