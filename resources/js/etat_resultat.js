@@ -54,14 +54,15 @@ function calcCharges(){
             let value = parseFloat($(this).val().replace(",", ".")) || 0;
             return $(this).data('role').includes('gains') ? -value : value; 
         }).get();
+
         
         let sum_n_1 = values_n_1.reduce((a, b) => a + b, 0);
         let sum_n = values_n.reduce((a, b) => a + b, 0);
 
         let resultats_activites_ordinaires_n_1 = parseFloat(cleanNumber($('#resultats_résultat_dexploitation__n-1').val().replace(",", "."))) || 0;
-        let resultats_résultat_des_activités_ordinaires_avant_impôt_n_1 =  resultats_activites_ordinaires_n_1 - sum_n_1;
+        let resultats_résultat_des_activités_ordinaires_avant_impôt_n_1 =  resultats_activites_ordinaires_n_1 - (sum_n_1-values_n_1.at(-1));
         let resultats_activites_ordinaires_n = parseFloat(cleanNumber($('#resultats_résultat_dexploitation__n').val().replace(",", "."))) || 0;
-        let resultats_résultat_des_activités_ordinaires_avant_impôt_n = resultats_activites_ordinaires_n - sum_n;
+        let resultats_résultat_des_activités_ordinaires_avant_impôt_n = resultats_activites_ordinaires_n - (sum_n-values_n.at(-1));
 
 
         $('#resultats_résultat_des_activités_ordinaires_avant_impôt_n-1').val(formatNumber(resultats_résultat_des_activités_ordinaires_avant_impôt_n_1));
