@@ -24,7 +24,7 @@
                 
                 <input type="text" name="resultats[{{ $resultat->id }}][n-1]"
                        id="resultats_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $resultat->label)) }}_n-1"
-                       placeholder="Year -1" {{-- required --}}
+                       placeholder="" {{-- required --}}
                        class="px-4 py-2 border rounded-md w-full text-right number" 
                        {{ str_contains(strtolower($resultat->label), 'total') || str_contains(strtolower($resultat->label), 'résultat') ? 'disabled' : ''}}
                        data-role="{{ $resultat->role }}"
@@ -33,7 +33,7 @@
 
                 <input type="text" name="resultats[{{ $resultat->id }}][n]" 
                        id="resultats_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $resultat->label)) }}_n"
-                       placeholder="Current Year" {{-- required --}}
+                       placeholder="" {{-- required --}}
                        class="px-4 py-2 border rounded-md w-full text-right number" 
                        {{ str_contains(strtolower($resultat->label), 'total') || str_contains(strtolower($resultat->label), 'résultat')  ? 'disabled' : ''}}
                        data-role="{{ $resultat->role }}"

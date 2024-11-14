@@ -31,7 +31,7 @@
                 
                 <input type="text" name="actifs[{{ $actif->id }}][n-1]"
                        id="actifs_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $actif->label)) }}_n-1"
-                       placeholder="Year -1" {{-- required --}}
+                       placeholder="" {{-- required --}}
                        class="px-4 py-2 border rounded-md w-full text-right number" 
                        {{ str_contains(strtolower($actif->label), 'total') ? 'disabled' : ''}}
                        data-role="{{ $actif->role }}"
@@ -41,7 +41,7 @@
 
                 <input type="text" name="actifs[{{ $actif->id }}][n]" 
                        id="actifs_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $actif->label)) }}_n"
-                       placeholder="Current Year" {{-- required --}}
+                       placeholder="" {{-- required --}}
                        class="px-4 py-2 border rounded-md w-full text-right number" 
                        {{ str_contains(strtolower($actif->label), 'total') ? 'disabled' : ''}}
                        data-role="{{ $actif->role }}"
@@ -56,13 +56,13 @@
                     <div class="grid grid-cols-3 col-span-3 mt-2 gap-x-4">
                         <input type="text" name="actifs[{{ strtolower($actif->label) }} result][n-1]" 
                                id="actifs_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $actif->label)) }}_n-1_result"
-                               placeholder="Year -1" disabled
+                               placeholder="" disabled
                                class="px-4 py-2 border bg-gray-100 rounded-md w-full text-right col-start-2 number" 
                                 data-role="{{ $actif->role }}"
                        />
                         <input type="text" name="actifs[{{ strtolower($actif->label) }} result][n]" 
                                id="actifs_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $actif->label)) }}_n_result"
-                               placeholder="Current Year" disabled
+                               placeholder="" disabled
                                class="px-4 py-2 border bg-gray-100 rounded-md w-full text-right col-start-3 number"
                                data-role="{{ $actif->role }}"
                        />
