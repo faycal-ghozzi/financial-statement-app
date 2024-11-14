@@ -19,8 +19,8 @@
                 @endphp
             @endif
 
-            <div class="grid grid-cols-3 items-center gap-x-4">
-                <label class="font-medium text-gray-700">{{ $resultat->label }}</label>
+            <div class="grid grid-cols-3 items-center gap-x-4" data-decoration="{{ $resultat->decoration }}">
+                <label class="{{ $resultat->decoration == 'stripe' ? 'font-bold text-white' : 'text-gray-700 font-medium'}} {{ $resultat->decoration == 'bold' ? 'text-black font-bold' : 'text-gray-700 font-medium'}}">{{ $resultat->label }}</label>
                 
                 <input type="text" name="resultats[{{ $resultat->id }}][n-1]"
                        id="resultats_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $resultat->label)) }}_n-1"

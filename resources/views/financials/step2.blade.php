@@ -26,8 +26,8 @@
                 @endphp
             @endif
 
-            <div class="grid grid-cols-3 items-center gap-x-4">
-                <label class="font-medium text-gray-700">{{ $actif->label }}</label>
+            <div class="grid grid-cols-3 items-center gap-x-4" data-decoration="{{ $actif->decoration }}">
+                <label class="{{ $actif->decoration == 'stripe' ? 'font-bold text-white' : 'text-gray-700 font-medium'}} {{ $actif->decoration == 'bold' ? 'text-black font-bold' : 'text-gray-700 font-medium'}}">{{ $actif->label }}</label>
                 
                 <input type="text" name="actifs[{{ $actif->id }}][n-1]"
                        id="actifs_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $actif->label)) }}_n-1"

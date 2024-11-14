@@ -31,8 +31,9 @@
         @endif
 
 
-        <div class="grid grid-cols-3 items-center gap-x-4">
-            <label class="font-medium text-gray-700">{{ $capital->label }}</label>
+        <div class="grid grid-cols-3 items-center gap-x-4" data-decoration="{{ $capital->decoration }}">
+            <label 
+                class="{{ $capital->decoration == 'stripe' ? 'font-bold text-white' : 'text-gray-700 font-medium'}} {{ $capital->decoration == 'bold' ? 'text-black font-bold' : 'text-gray-700 font-medium'}}">{{ $capital->label }}</label>
             
             <input type="text" name="capitaux[{{ $capital->id }}][previous_year]" 
                 id="capitaux_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $capital->label)) }}_n-1"
@@ -65,8 +66,8 @@
             @endphp
         @endif
 
-        <div class="grid grid-cols-3 items-center gap-x-4">
-            <label class="font-medium text-gray-700">{{ $passif->label }}</label>
+        <div class="grid grid-cols-3 items-center gap-x-4" data-decoration="{{ $passif->decoration }}">
+            <label class="{{ $passif->decoration == 'stripe' ? 'font-bold text-white' : 'text-gray-700 font-medium'}} {{ $passif->decoration == 'bold' ? 'text-black font-bold' : 'text-gray-700 font-medium'}}">{{ $passif->label }}</label>
             
             <input type="text" name="passifs[{{ $passif->id }}][previous_year]" 
                 id="passifs_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $passif->label)) }}_n-1"
