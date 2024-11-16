@@ -14,7 +14,7 @@ export function formatInputs() {
 
         const allowNegative = allowedIds.includes($input.attr("id"));
 
-        const regex = allowNegative ? /^-?\d*(\.|,)?\d*$/ :/^\d*(\.|,)?\d*$/;
+        const regex = allowNegative ? /^-?\d*[.,]?\d*$/ :/^\d*[.,]?\d*$/;
 
         if(!regex.test(inputValue)){
             $input.val($input.data("previous") || "");
