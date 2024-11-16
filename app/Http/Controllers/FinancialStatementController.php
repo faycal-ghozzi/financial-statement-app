@@ -22,17 +22,14 @@ class FinancialStatementController extends Controller {
 
     public function store(Request $request)
     {
-        // Step 1: Clean input data
         $cleanedRequestData = $this->cleanNumericFields($request->all());
         $request->merge($cleanedRequestData);
 
-        // Step 2: Static validation
         $validatedStatic = $request->validate([
             'company_name' => 'required|string|max:255',
             'current_year' => 'required|date',
         ]);
 
-        // Step 3: Dynamic rules
         $dynamicRules = [];
         foreach (['actifs', 'capitaux', 'passifs', 'resultats'] as $category) {
             if ($request->has($category)) {
@@ -47,10 +44,8 @@ class FinancialStatementController extends Controller {
 
         $validatedDynamic = $request->validate($dynamicRules);
 
-        // Step 4: Save the company
         $company = Company::firstOrCreate(['name' => $validatedStatic['company_name']]);
 
-        // Step 5: Save financial data
         $this->saveData($validatedDynamic, $company, $validatedStatic['current_year']);
 
         return response()->json(['message' => 'Data saved successfully!']);
@@ -67,7 +62,6 @@ class FinancialStatementController extends Controller {
                 }
             }
         }
-
         return $data;
     }
 
@@ -96,6 +90,44 @@ class FinancialStatementController extends Controller {
                 }
             }
         }
+    }
+
+    public function fetchAll(Request $request)
+    {
+        $search = $request->input('search');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $financialStatements = \App\Models\FinancialStatementFile::with('company')
+            ->when($search, function ($query, $search) {
+                $query->whereHas('company', function ($query) use ($search) {
+                    $query->where('name', 'like', "%{$search}%");
+                });
+            })
+            ->when($startDate, function ($query, $startDate) {
+                $query->where('date', '>=', $startDate);
+            })
+            ->when($endDate, function ($query, $endDate) {
+                $query->where('date', '<=', $endDate);
+            })
+            ->paginate(10);
+
+        return view('financial_statements.fetch_all', compact('financialStatements', 'search', 'startDate', 'endDate'));
+    }
+
+    public function show($id, Request $request)
+    {
+        $date = $request->input('date');
+
+        $financialStatements = \App\Models\FinancialStatement::where('date', $date)
+            ->where('company_id', function ($query) use ($id) {
+                $query->select('company_id')
+                    ->from('financial_statement_files')
+                    ->where('id', $id);
+            })
+            ->get();
+
+        return view('financial_statements.show', compact('financialStatements', 'date'));
     }
 
 }
