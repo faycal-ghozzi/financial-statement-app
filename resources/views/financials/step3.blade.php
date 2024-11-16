@@ -35,19 +35,19 @@
             <label 
                 class="{{ $capital->decoration == 'stripe' ? 'font-bold text-white' : 'text-gray-700 font-medium'}} {{ $capital->decoration == 'bold' ? 'text-black font-bold' : 'text-gray-700 font-medium'}}">{{ $capital->label }}</label>
             
-            <input type="text" name="capitaux[{{ $capital->id }}][current_year]" 
+            <input type="text" name="capitaux[{{ $capital->id }}][n]"
                 id="capitaux_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $capital->label)) }}_n"
                 placeholder="" {{-- required --}}
                 class="px-4 py-2 border rounded-md w-full text-right number"
-                {{ str_contains(strtolower($capital->label), 'total') ? 'readonly' : ''}}
+                {{ str_contains(strtolower($capital->label), 'total') ? 'disabled' : ''}}
                 data-role="{{ $capital->role }}"
                 data-year="n"
                 />
-            <input type="text" name="capitaux[{{ $capital->id }}][previous_year]" 
+            <input type="text" name="capitaux[{{ $capital->id }}][n-1]"
                 id="capitaux_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $capital->label)) }}_n-1"
                 placeholder="" {{-- required --}}
                 class="px-4 py-2 border rounded-md w-full text-right number"
-                {{ str_contains(strtolower($capital->label), 'total') ? 'readonly' : ''}}
+                {{ str_contains(strtolower($capital->label), 'total') ? 'disabled' : ''}}
                 data-role="{{ $capital->role }}"
                 data-year="n-1"
                 />
@@ -68,19 +68,19 @@
         <div class="grid grid-cols-3 items-center gap-x-4" data-decoration="{{ $passif->decoration }}">
             <label class="{{ $passif->decoration == 'stripe' ? 'font-bold text-white' : 'text-gray-700 font-medium'}} {{ $passif->decoration == 'bold' ? 'text-black font-bold' : 'text-gray-700 font-medium'}}">{{ $passif->label }}</label>
             
-            <input type="text" name="passifs[{{ $passif->id }}][current_year]" 
+            <input type="text" name="passifs[{{ $passif->id }}][n]"
                 id="passifs_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $passif->label)) }}_n"
                 placeholder="" {{-- required --}}
                 class="px-4 py-2 border rounded-md w-full text-right number"
-                {{ str_contains(strtolower($passif->label), 'total') ? 'readonly' : ''}}
+                {{ str_contains(strtolower($passif->label), 'total') ? 'disabled' : ''}}
                 data-role="{{ $passif->role }}"
                 data-year="n"
                 />
-            <input type="text" name="passifs[{{ $passif->id }}][previous_year]" 
+            <input type="text" name="passifs[{{ $passif->id }}][n-1]"
                 id="passifs_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $passif->label)) }}_n-1"
                 placeholder="" {{-- required --}}
                 class="px-4 py-2 border rounded-md w-full text-right number"
-                {{ str_contains(strtolower($passif->label), 'total') ? 'readonly' : ''}}
+                {{ str_contains(strtolower($passif->label), 'total') ? 'disabled' : ''}}
                 data-role="{{ $passif->role }}"
                 data-year="n-1"
                 />

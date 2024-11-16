@@ -5,6 +5,8 @@ use App\Models\Company;
 use App\Models\FsEntryPoint;
 use App\Models\FinancialStatement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 
 class FinancialStatementController extends Controller {
 
@@ -18,105 +20,82 @@ class FinancialStatementController extends Controller {
         return view('financial-statement', compact('actifs', 'capitaux', 'passifs', 'resultats'));
     }
 
-    public function store(Request $request){
-        $request->validate([
+    public function store(Request $request)
+    {
+        // Step 1: Clean input data
+        $cleanedRequestData = $this->cleanNumericFields($request->all());
+        $request->merge($cleanedRequestData);
+
+        // Step 2: Static validation
+        $validatedStatic = $request->validate([
             'company_name' => 'required|string|max:255',
             'current_year' => 'required|date',
         ]);
 
-        var_dump($request);
+        // Step 3: Dynamic rules
+        $dynamicRules = [];
+        foreach (['actifs', 'capitaux', 'passifs', 'resultats'] as $category) {
+            if ($request->has($category)) {
+                foreach ($request->$category as $id => $values) {
+                    foreach ($values as $year => $value) {
+                        $fieldKey = "{$category}.{$id}.{$year}";
+                        $dynamicRules[$fieldKey] = 'nullable|numeric';
+                    }
+                }
+            }
+        }
 
-        return null;
+        $validatedDynamic = $request->validate($dynamicRules);
 
-        // $company = Company::firstOrCreate(['name' => $request->input('company_name')]);
+        // Step 4: Save the company
+        $company = Company::firstOrCreate(['name' => $validatedStatic['company_name']]);
 
-        // // Store in session
-        
-        // session(['company_id' => $company->id, 'current_year' => $request->input('current_year')]);
+        // Step 5: Save financial data
+        $this->saveData($validatedDynamic, $company, $validatedStatic['current_year']);
 
-        // Fetch Actifs
-        // $actifs = FsEntryPoint::where('category', 'like', 'Actifs%')->orderBy('id', 'asc')->get();
-
-        // return view('financials.step2', compact('test'));
-
+        return response()->json(['message' => 'Data saved successfully!']);
     }
 
-    // public function stepOne() {
-    //     // Render step 1 form
-    //     return view('financials.step1');
-    // }
+    private function cleanNumericFields(array $data)
+    {
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                $data[$key] = $this->cleanNumericFields($value);
+            } elseif (is_string($value)) {
+                if (preg_match('/^\d[\d\s\.]+$/', $value)) {
+                    $data[$key] = preg_replace('/\s+/', '', $value);
+                }
+            }
+        }
 
-    // public function stepTwo(Request $request) {
-    //     // Validate company name and year
-    //     $request->validate([
-    //         'company_name' => 'required|string|max:255',
-    //         'current_year' => 'required|integer',
-    //     ]);
+        return $data;
+    }
 
-    //     // Create or find the company
-    //     $company = Company::firstOrCreate(['name' => $request->input('company_name')]);
+    private function saveData($validatedDynamic, $company, $date)
+    {
+        $currentDate = \Carbon\Carbon::parse($date);
 
-    //     // Store in session
-        
-    //     session(['company_id' => $company->id, 'current_year' => $request->input('current_year')]);
+        foreach (['actifs', 'capitaux', 'passifs', 'resultats'] as $category) {
+            if (isset($validatedDynamic[$category])) {
+                foreach ($validatedDynamic[$category] as $id => $values) {
+                    foreach ($values as $year => $value) {
+                        $date = null;
+                        if ($year === 'n') {
+                            $date = $currentDate;
+                        } elseif ($year === 'n-1') {
+                            $date = $currentDate->copy()->subYear();
+                        }
 
-    //     // Fetch Actifs
-    //     $actifs = FsEntryPoint::where('category', 'like', 'Actifs%')->orderBy('id', 'asc')->get();
-    //     return view('financials.step2', compact('actifs'));
-    // }
+                        FinancialStatement::create([
+                            'entry_point_id' => $id,
+                            'date' => $date ? $date->format('Y-m-d') : null,
+                            'value' => $value !== null ? (float)$value : 0.0,
+                            'company_id' => $company->id,
+                        ]);
+                    }
+                }
+            }
+        }
+    }
 
-    // public function stepThree(Request $request) {
-    //     // Store Actifs in session
-    //     session(['actifs' => $request->input('actifs')]);
-
-    //     // Fetch Passifs
-    //     $passifs = FsEntryPoint::where('category', 'like', 'Passifs%')->orderBy('rank')->get();
-    //     return view('financials.step3', compact('passifs'));
-    // }
-
-    // public function validateTotals(Request $request) {
-    //     // Store Passifs in session
-    //     session(['passifs' => $request->input('passifs')]);
-
-    //     // Get Actifs and Passifs from session
-    //     $actifs = session('actifs');
-    //     $passifs = session('passifs');
-
-    //     // Calculate totals
-    //     $total_actifs_current = array_sum(array_column($actifs, 'current_year'));
-    //     $total_actifs_previous = array_sum(array_column($actifs, 'previous_year'));
-    //     $total_passifs_current = array_sum(array_column($passifs, 'current_year'));
-    //     $total_passifs_previous = array_sum(array_column($passifs, 'previous_year'));
-
-    //     // Ensure totals match before proceeding
-    //     if ($total_actifs_current !== $total_passifs_current || $total_actifs_previous !== $total_passifs_previous) {
-    //         return redirect()->back()->withErrors(['total_mismatch' => 'Actifs and Passifs totals do not match.']);
-    //     }
-
-    //     return redirect()->route('financial.step.four');
-    // }
-
-    // public function stepFour() {
-    //     return view('financials.step4');
-    // }
-
-    // public function store(Request $request) {
-    //     // Handle image upload and store all data
-    //     $company_id = session('company_id');
-    //     $current_year = session('current_year');
-    //     $actifs = session('actifs');
-    //     $passifs = session('passifs');
-
-    //     foreach ($actifs as $entry_id => $data) {
-    //         FinancialStatement::create(['company_id' => $company_id, 'entry_point_id' => $entry_id, 'year' => $current_year, 'value' => $data['current_year']]);
-    //         FinancialStatement::create(['company_id' => $company_id, 'entry_point_id' => $entry_id, 'year' => $current_year - 1, 'value' => $data['previous_year']]);
-    //     }
-
-    //     foreach ($passifs as $entry_id => $data) {
-    //         FinancialStatement::create(['company_id' => $company_id, 'entry_point_id' => $entry_id, 'year' => $current_year, 'value' => $data['current_year']]);
-    //         FinancialStatement::create(['company_id' => $company_id, 'entry_point_id' => $entry_id, 'year' => $current_year - 1, 'value' => $data['previous_year']]);
-    //     }
-
-    //     return redirect()->route('financial.success')->with('success', 'Financial data saved successfully.');
-    // }
 }

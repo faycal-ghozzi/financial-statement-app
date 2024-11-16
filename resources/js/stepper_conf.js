@@ -1,13 +1,13 @@
 import { formatNumber, cleanNumber, formatInputs } from './utils';
 
-function saveDatatoDB(){
+function saveDatatoDB(formData){
     $.ajax({
         type: "POST",
         url: '/financial-statement',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        data: $("#financial-form").serialize(),
+        data: formData,
         success: function() {
             console.log('success')
         },
@@ -52,7 +52,23 @@ $(document).ready(function() {
             }
         },
         onFinished: function (event, currentIndex) {
-            saveDatatoDB()
+
+            $("#financial-form")
+                .find(":disabled")
+                .each(function () {
+                    $(this).data("disabled", true).prop("disabled", false);
+                });
+
+            // Serialize form
+            const formData = $("#financial-form").serialize();
+
+            // Re-disable the inputs
+            $("#financial-form")
+                .find(":disabled[data-disabled]")
+                .prop("disabled", true)
+                .removeData("disabled");
+
+            saveDatatoDB(formData)
             // $("#financial-form").submit();
         },
         onInit: function (event, currentIndex) {
