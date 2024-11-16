@@ -32,8 +32,8 @@
                 <input type="text" name="actifs[{{ $actif->id }}][n-1]"
                        id="actifs_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $actif->label)) }}_n-1"
                        placeholder="" {{-- required --}}
-                       class="px-4 py-2 border rounded-md w-full text-right number" 
-                       {{ str_contains(strtolower($actif->label), 'total') ? 'disabled' : ''}}
+                       class="px-4 py-2 border rounded-md w-full text-right number"
+                       {{ str_contains(strtolower($actif->label), 'total') ? 'readonly' : ''}}
                        data-role="{{ $actif->role }}"
                        data-type="{{ $actif->type }}"
                        data-year="n-1"
@@ -42,8 +42,8 @@
                 <input type="text" name="actifs[{{ $actif->id }}][n]" 
                        id="actifs_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $actif->label)) }}_n"
                        placeholder="" {{-- required --}}
-                       class="px-4 py-2 border rounded-md w-full text-right number" 
-                       {{ str_contains(strtolower($actif->label), 'total') ? 'disabled' : ''}}
+                       class="px-4 py-2 border rounded-md w-full text-right number"
+                       {{ str_contains(strtolower($actif->label), 'total') ? 'readonly' : ''}}
                        data-role="{{ $actif->role }}"
                        data-type="{{ $actif->type }}"
                        data-year="n"

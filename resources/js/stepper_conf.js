@@ -1,5 +1,22 @@
 import { formatNumber, cleanNumber, formatInputs } from './utils';
 
+function saveDatatoDB(){
+    $.ajax({
+        type: "POST",
+        url: '/financial-statement',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: $("#financial-form").serialize(),
+        success: function() {
+            console.log('success')
+        },
+        error: function() {
+            console.log('fail')
+        }
+    })
+}
+
 $(document).ready(function() {
     $("#financial-form").steps({
         headerTag: "h3",
@@ -31,11 +48,12 @@ $(document).ready(function() {
             else if(total_actifs_n_1 !== total_passifs_n_1){
                 alert('veuillez verifier le bilan de l\'année précedente');
             }else{
-                // return $("#financial-form").valid();
+                return $("#financial-form").valid();
             }
         },
         onFinished: function (event, currentIndex) {
-            //$("#financial-form").submit();
+            saveDatatoDB()
+            // $("#financial-form").submit();
         },
         onInit: function (event, currentIndex) {
             // Hide "Précédent" on the first step

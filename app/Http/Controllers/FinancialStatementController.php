@@ -21,10 +21,14 @@ class FinancialStatementController extends Controller {
     public function store(Request $request){
         $request->validate([
             'company_name' => 'required|string|max:255',
-            'current_year' => 'required|integer',
+            'current_year' => 'required|date',
         ]);
 
-        $company = Company::firstOrCreate(['name' => $request->input('company_name')]);
+        var_dump($request);
+
+        return null;
+
+        // $company = Company::firstOrCreate(['name' => $request->input('company_name')]);
 
         // // Store in session
         

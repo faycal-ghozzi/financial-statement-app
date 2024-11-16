@@ -26,16 +26,16 @@
                        id="resultats_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $resultat->label)) }}_n-1"
                        placeholder="" {{-- required --}}
                        class="px-4 py-2 border rounded-md w-full text-right number" 
-                       {{ str_contains(strtolower($resultat->label), 'total') || str_contains(strtolower($resultat->label), 'résultat') ? 'disabled' : ''}}
+                       {{ str_contains(strtolower($resultat->label), 'total') || str_contains(strtolower($resultat->label), 'résultat') ? 'readonly' : ''}}
                        data-role="{{ $resultat->role }}"
                        data-year="n-1"
                        />
 
-                <input type="text" name="resultats[{{ $resultat->id }}][n]" 
+                <input type="text" name="resultats[{{ $resultat->id }}][n]"
                        id="resultats_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $resultat->label)) }}_n"
                        placeholder="" {{-- required --}}
                        class="px-4 py-2 border rounded-md w-full text-right number" 
-                       {{ str_contains(strtolower($resultat->label), 'total') || str_contains(strtolower($resultat->label), 'résultat')  ? 'disabled' : ''}}
+                       {{ str_contains(strtolower($resultat->label), 'total') || str_contains(strtolower($resultat->label), 'résultat')  ? 'readonly' : ''}}
                        data-role="{{ $resultat->role }}"
                        data-year="n"
                        />
