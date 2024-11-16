@@ -6,6 +6,6 @@ $(document).ready(function (){
         'background-color' : '#082E34',
         'padding' : '10px 2.5%',
         'transform': 'translateX(-2.5%)',
-        'color' : 'white',
+        'color' : '#082E34',
     })
 })

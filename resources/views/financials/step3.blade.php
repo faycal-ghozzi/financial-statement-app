@@ -17,8 +17,8 @@
             <div class="grid grid-cols-3 items-center gap-x-4">
                 <h3 class="text-lg font-semibold mt-8">{{ $capital->category }}</h3>
                 @if($firstEntry)
-                    <h3 class="text-lg font-semibold mt-8 flex items-center justify-center">n-1</h3>
                     <h3 class="text-lg font-semibold mt-8 flex items-center justify-center">n</h3>
+                    <h3 class="text-lg font-semibold mt-8 flex items-center justify-center">n-1</h3>
                 @endif
             </div>
             @if ($previousCategory === null)
@@ -35,15 +35,6 @@
             <label 
                 class="{{ $capital->decoration == 'stripe' ? 'font-bold text-white' : 'text-gray-700 font-medium'}} {{ $capital->decoration == 'bold' ? 'text-black font-bold' : 'text-gray-700 font-medium'}}">{{ $capital->label }}</label>
             
-            <input type="text" name="capitaux[{{ $capital->id }}][previous_year]" 
-                id="capitaux_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $capital->label)) }}_n-1"
-                placeholder="" {{-- required --}}
-                class="px-4 py-2 border rounded-md w-full text-right number"
-                {{ str_contains(strtolower($capital->label), 'total') ? 'readonly' : ''}}
-                data-role="{{ $capital->role }}"
-                data-year="n-1"
-                />
-
             <input type="text" name="capitaux[{{ $capital->id }}][current_year]" 
                 id="capitaux_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $capital->label)) }}_n"
                 placeholder="" {{-- required --}}
@@ -51,6 +42,14 @@
                 {{ str_contains(strtolower($capital->label), 'total') ? 'readonly' : ''}}
                 data-role="{{ $capital->role }}"
                 data-year="n"
+                />
+            <input type="text" name="capitaux[{{ $capital->id }}][previous_year]" 
+                id="capitaux_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $capital->label)) }}_n-1"
+                placeholder="" {{-- required --}}
+                class="px-4 py-2 border rounded-md w-full text-right number"
+                {{ str_contains(strtolower($capital->label), 'total') ? 'readonly' : ''}}
+                data-role="{{ $capital->role }}"
+                data-year="n-1"
                 />
         </div>
     @endforeach
@@ -69,15 +68,6 @@
         <div class="grid grid-cols-3 items-center gap-x-4" data-decoration="{{ $passif->decoration }}">
             <label class="{{ $passif->decoration == 'stripe' ? 'font-bold text-white' : 'text-gray-700 font-medium'}} {{ $passif->decoration == 'bold' ? 'text-black font-bold' : 'text-gray-700 font-medium'}}">{{ $passif->label }}</label>
             
-            <input type="text" name="passifs[{{ $passif->id }}][previous_year]" 
-                id="passifs_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $passif->label)) }}_n-1"
-                placeholder="" {{-- required --}}
-                class="px-4 py-2 border rounded-md w-full text-right number"
-                {{ str_contains(strtolower($passif->label), 'total') ? 'readonly' : ''}}
-                data-role="{{ $passif->role }}"
-                data-year="n-1"
-                />
-
             <input type="text" name="passifs[{{ $passif->id }}][current_year]" 
                 id="passifs_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $passif->label)) }}_n"
                 placeholder="" {{-- required --}}
@@ -85,6 +75,14 @@
                 {{ str_contains(strtolower($passif->label), 'total') ? 'readonly' : ''}}
                 data-role="{{ $passif->role }}"
                 data-year="n"
+                />
+            <input type="text" name="passifs[{{ $passif->id }}][previous_year]" 
+                id="passifs_{{ strtolower(str_replace([' ', '\'', '(', ')', '/'], ['_', '', '', '', '_'], $passif->label)) }}_n-1"
+                placeholder="" {{-- required --}}
+                class="px-4 py-2 border rounded-md w-full text-right number"
+                {{ str_contains(strtolower($passif->label), 'total') ? 'readonly' : ''}}
+                data-role="{{ $passif->role }}"
+                data-year="n-1"
                 />
         </div>
     @endforeach
