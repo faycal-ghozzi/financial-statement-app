@@ -14,7 +14,7 @@
             </div>
         @endif
 
-        <form {{--action="{{ route('financial-statement.store') }}"--}} id="financial-form" method="POST" enctype="multipart/form-data" novalidate>
+        <form id="financial-form" method="POST" enctype="multipart/form-data" novalidate>
             @csrf
             @include('financials.step1')
             @include('financials.step2')

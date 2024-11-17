@@ -9,7 +9,7 @@
                 <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Cliquez pour télécharger</span> ou glissez-déposez</p>
                 <p class="text-xs text-gray-500 dark:text-gray-400">PDF</p>
             </div>
-            <input id="dropzone-file" type="file" class="hidden" accept="application/pdf" required/>
+            <input id="dropzone-file" type="file" name="file" class="hidden" accept="application/pdf" required/>
         </label>
     </div>
 </section>

@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Banque Tuniso-Lybienne')</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.21.0/jquery.validate.min.js" integrity="sha512-KFHXdr2oObHKI9w4Hv1XPKc898mE4kgYx58oqsc/JqqdLMDI4YjOLzom+EMlW8HFUd0QfjfAvxSL6sEq/a42fQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    @vite('resources/css/app.css')
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
         body {
@@ -25,9 +30,9 @@
 
             <!-- Navigation Links -->
             <ul class="hidden md:flex space-x-6">
-                <li><a href="{{ route('financial-statements.fetch_all') }}" class="hover:underline">Dashboard</a></li>
-                <li><a href="{{ route('financial-statements.fetch_all') }}" class="hover:underline">Financial Statements</a></li>
-                <li><a href="{{ route('financial-statements.fetch_all') }}" class="hover:underline">Logout</a></li>
+                <li><a href="{{ route('financial-statements.fetch_all') }}" class="hover:underline">Acceuil</a></li>
+                <li><a href="{{ route('financial-statements.fetch_all') }}" class="hover:underline">Bilans Financiers</a></li>
+                <li><a href="{{ route('financial-statements.fetch_all') }}" class="hover:underline">Déconnexion</a></li>
             </ul>
 
             <!-- Mobile Menu Button -->
@@ -41,9 +46,9 @@
         <!-- Mobile Menu -->
         <div id="mobileMenu" class="hidden bg-btlGreen text-white md:hidden">
             <ul class="flex flex-col space-y-4 p-4">
-                <li><a href="{{ route('financial-statements.fetch_all') }}" class="hover:underline">Dashboard</a></li>
-                <li><a href="{{ route('financial-statements.fetch_all') }}" class="hover:underline">Financial Statements</a></li>
-                <li><a href="{{ route('financial-statements.fetch_all') }}" class="hover:underline">Logout</a></li>
+                <li><a href="{{ route('financial-statements.fetch_all') }}" class="hover:underline">Acceuil</a></li>
+                <li><a href="{{ route('financial-statements.fetch_all') }}" class="hover:underline">Bilans Financiers</a></li>
+                <li><a href="{{ route('financial-statements.fetch_all') }}" class="hover:underline">Déconnexion</a></li>
             </ul>
         </div>
     </nav>
@@ -61,7 +66,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16l-4-4m0 0l4-4m-4 4h16" />
                         </svg>
                         <a href="{{ route('financial-statements.show', $statement->id ?? '') }}" class="text-white text-sm font-medium">
-                            Consult Financial Statement
+                            Consultuer Bilan Financier
                         </a>
                     </li>
                     <!-- Consult Ratios -->
@@ -70,7 +75,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h11M9 21V3m12 7h-8m8 4h-8" />
                         </svg>
                         <a href="{{ route('financial-statements.fetch_all', $statement->id ?? '') }}" class="text-white text-sm font-medium">
-                            Consult Ratios
+                            Consulter Ratios
                         </a>
                     </li>
                     <!-- Download Attached Document -->
@@ -79,7 +84,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                         </svg>
                         <a href="{{ asset($statement->file_path ?? '') }}" target="_blank" class="text-white text-sm font-medium">
-                            Download Attached Document
+                            Télécharger Document
                         </a>
                     </li>
                 </ul>
@@ -98,5 +103,11 @@
             menu.classList.toggle('hidden');
         });
     </script>
+    @vite('resources/js/app.js')
+    @vite('resources/js/stepper_conf.js')
+    @vite('resources/js/calc_actifs.js')
+    @vite('resources/js/calc_passifs.js')
+    @vite('resources/js/etat_resultat.js')
+    @vite('resources/js/financialStatements.js')
 </body>
 </html>
