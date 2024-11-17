@@ -11,6 +11,10 @@ export default {
     ],
     theme: {
         extend: {
+            colors: {
+                btlGreen: 'rgb(23, 48, 35)', // Primary green
+                btlRed: 'rgb(203, 48, 49)',  // Accent red
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
