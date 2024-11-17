@@ -14,9 +14,51 @@
 
 </head>
 <body class="bg-gray-100">
-    <main class="container mx-auto p-8">
+
+    <!-- Navbar -->
+    <nav class="bg-btlGreen text-white shadow-md">
+        <div class="container mx-auto px-4 flex justify-between items-center py-4">
+            <!-- Logo -->
+            <a href="{{ route('financial-statements.fetch_all') }}" class="flex items-center space-x-2">
+                <img src="{{ asset('images/logo-btl.svg') }}" alt="BTL Logo" class="h-8">
+                <span class="text-lg font-bold uppercase">Banque Tuniso-Lybienne</span>
+            </a>
+
+            <!-- Navigation Links -->
+            <ul class="hidden md:flex space-x-6">
+                <li><a href="{{ route('financial-statements.fetch_all') }}" class="hover:underline">Dashboard</a></li>
+                <li><a href="{{ route('financial-statements.fetch_all') }}" class="hover:underline">Financial Statements</a></li>
+                <li><a href="{{ route('financial-statements.fetch_all') }}" class="hover:underline">Logout</a></li>
+            </ul>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobileMenuButton" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden bg-btlGreen text-white md:hidden">
+            <ul class="flex flex-col space-y-4 p-4">
+                <li><a href="{{ route('financial-statements.fetch_all') }}" class="hover:underline">Dashboard</a></li>
+                <li><a href="{{ route('financial-statements.fetch_all') }}" class="hover:underline">Financial Statements</a></li>
+                <li><a href="{{ route('financial-statements.fetch_all') }}" class="hover:underline">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container mx-auto py-8">
         @yield('content')
     </main>
+
+    <script>
+        document.getElementById('mobileMenuButton').addEventListener('click', () => {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
     @vite('resources/js/app.js')
     @vite('resources/js/stepper_conf.js')
     @vite('resources/js/calc_actifs.js')

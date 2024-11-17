@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.with-sidemenu')
 
 @section('content')
 <div class="container mx-auto px-4">
