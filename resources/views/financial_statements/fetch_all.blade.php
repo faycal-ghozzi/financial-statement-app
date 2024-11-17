@@ -6,29 +6,29 @@
 
     <!-- Search and Filter Form -->
     <form method="GET" action="{{ route('financial-statements.fetch_all') }}" class="mb-4 flex space-x-4">
-        <input 
-            type="text" 
-            name="search" 
-            value="{{ request('search') }}" 
-            placeholder="Search by company name" 
+        <input
+            type="text"
+            name="search"
+            value="{{ request('search') }}"
+            placeholder="Search by company name"
             class="border rounded px-4 py-2 w-full"
         >
-        <input 
-            type="date" 
-            name="start_date" 
-            value="{{ request('start_date') }}" 
-            placeholder="Start Date" 
+        <input
+            type="date"
+            name="start_date"
+            value="{{ request('start_date') }}"
+            placeholder="Start Date"
             class="border rounded px-4 py-2"
         >
-        <input 
-            type="date" 
-            name="end_date" 
-            value="{{ request('end_date') }}" 
-            placeholder="End Date" 
+        <input
+            type="date"
+            name="end_date"
+            value="{{ request('end_date') }}"
+            placeholder="End Date"
             class="border rounded px-4 py-2"
         >
-        <button 
-            type="submit" 
+        <button
+            type="submit"
             class="bg-blue-500 text-white px-4 py-2 rounded"
         >
             Filter

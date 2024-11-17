@@ -18,6 +18,9 @@
         </div>
 
         <!-- Entries -->
+        @php
+            $previousEntry = null; // To hold the last entry for subtraction
+        @endphp
         @foreach ($entries as $entry)
         <div class="grid grid-cols-3 gap-4 items-center {{ $entry->decoration == 'stripe' ? 'bg-gray-200' : '' }}">
             <!-- Label -->
@@ -25,24 +28,72 @@
                 {{ $entry->label }}
             </div>
             
-            <!-- Current Year Value -->
+            <!-- Current Year Value (n) -->
             <div class="text-center">
-                {{
-                    isset($financialStatements[$dateCurrentYear." 00:00:00"])
-                        ? $financialStatements[$dateCurrentYear." 00:00:00"]->firstWhere('entry_point_id', $entry->id)->value ?? '-'
-                        : '-'
-                }}
+                @php
+                    $currentValue = isset($financialStatements[$dateCurrentYear])
+                        ? $financialStatements[$dateCurrentYear]->firstWhere('entry_point_id', $entry->id)->value ?? null
+                        : null;
+                @endphp
+                @if (str_contains($entry->label, 'Amortissements') || str_contains($entry->label, 'Provisions'))
+                    ({{ $currentValue !== null ? number_format($currentValue, 3, '.', ' ') : '-' }})
+                @else
+                    {{ $currentValue !== null ? number_format($currentValue, 3, '.', ' ') : '-' }}
+                @endif
             </div>
 
-            <!-- Previous Year Value -->
+            <!-- Previous Year Value (n-1) -->
             <div class="text-center">
-                {{
-                    isset($financialStatements[$datePreviousYear." 00:00:00"])
-                        ? $financialStatements[$datePreviousYear." 00:00:00"]->firstWhere('entry_point_id', $entry->id)->value ?? '-'
-                        : '-'
-                }}
+                @php
+                    $previousValue = isset($financialStatements[$datePreviousYear])
+                        ? $financialStatements[$datePreviousYear]->firstWhere('entry_point_id', $entry->id)->value ?? null
+                        : null;
+                @endphp
+                @if (str_contains($entry->label, 'Amortissements') || str_contains($entry->label, 'Provisions'))
+                    ({{ $previousValue !== null ? number_format($previousValue, 3, '.', ' ') : '-' }})
+                @else
+                    {{ $previousValue !== null ? number_format($previousValue, 3, '.', ' ') : '-' }}
+                @endif
             </div>
         </div>
+
+        <!-- Result Row for Amortissements or Provisions -->
+        @if (str_contains($entry->label, 'Amortissements') || str_contains($entry->label, 'Provisions'))
+        <div class="grid grid-cols-3 gap-4 items-center mb-6">
+            <!-- Empty Label -->
+            <div></div>
+
+            <!-- Result (n - corresponding Immobilisation) -->
+            <div class="text-center font-bold">
+                @php
+                    $currentResult = $currentValue !== null && $previousEntry !== null && isset($previousEntry['currentValue'])
+                        ? $previousEntry['currentValue'] - $currentValue
+                        : null;
+                @endphp
+                {{ $currentResult !== null ? number_format($currentResult, 3, '.', ' ') : '-' }}
+            </div>
+
+            <!-- Result (n-1 - corresponding Immobilisation for previous year) -->
+            <div class="text-center font-bold">
+                @php
+                    $previousResult = $previousValue !== null && $previousEntry !== null && isset($previousEntry['previousValue'])
+                        ? $previousEntry['previousValue'] - $previousValue
+                        : null;
+                @endphp
+                {{ $previousResult !== null ? number_format($previousResult, 3, '.', ' ') : '-' }}
+            </div>
+        </div>
+        @endif
+
+        <!-- Track Previous Entry -->
+        @php
+            $previousEntry = [
+                'id' => $entry->id,
+                'label' => $entry->label,
+                'currentValue' => $currentValue,
+                'previousValue' => $previousValue
+            ];
+        @endphp
         @endforeach
     </section>
     @endforeach
