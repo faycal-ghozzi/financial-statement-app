@@ -22,5 +22,6 @@
     @vite('resources/js/calc_actifs.js')
     @vite('resources/js/calc_passifs.js')
     @vite('resources/js/etat_resultat.js')
+    @vite('resources/js/financialStatements.js')
 </body>
 </html>
