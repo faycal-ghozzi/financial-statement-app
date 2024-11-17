@@ -116,18 +116,45 @@ class FinancialStatementController extends Controller {
     }
 
     public function show($id, Request $request)
-    {
-        $date = $request->input('date');
+{
+    $file = \App\Models\FinancialStatementFile::with('company')->findOrFail($id);
 
-        $financialStatements = \App\Models\FinancialStatement::where('date', $date)
-            ->where('company_id', function ($query) use ($id) {
-                $query->select('company_id')
-                    ->from('financial_statement_files')
-                    ->where('id', $id);
-            })
-            ->get();
+    // Format the current and previous year dates
+    $dateCurrentYear = \Carbon\Carbon::parse($file->date)->format('Y-m-d');
+    $datePreviousYear = \Carbon\Carbon::parse($file->date)->subYear()->format('Y-m-d');
 
-        return view('financial_statements.show', compact('financialStatements', 'date'));
-    }
+    // Fetch and group financial statements by date (formatted as Y-m-d)
+    $financialStatements = \App\Models\FinancialStatement::with('entryPoint')
+        ->where('company_id', $file->company_id)
+        ->whereIn('date', [$dateCurrentYear, $datePreviousYear])
+        ->get()
+        ->map(function ($item) {
+            // Format the date to Y-m-d
+            $item->date = \Carbon\Carbon::parse($item->date)->format('Y-m-d');
+            return $item;
+        })
+        ->groupBy('date'); // Group by Y-m-d formatted date
+
+    // Add fallbacks for missing dates
+    $financialStatements[$dateCurrentYear] = $financialStatements[$dateCurrentYear] ?? collect([]);
+    $financialStatements[$datePreviousYear] = $financialStatements[$datePreviousYear] ?? collect([]);
+
+    // Log for debugging
+    Log::info('Current Year:', ['dateCurrentYear' => $dateCurrentYear]);
+    Log::info('Previous Year:', ['datePreviousYear' => $datePreviousYear]);
+    Log::info('Financial Statements Keys:', $financialStatements->keys()->toArray());
+
+    $categories = $financialStatements->flatMap(function ($statements) {
+        return $statements->pluck('entryPoint');
+    })->groupBy('category');
+
+    return view('financial_statements.show', compact(
+        'file',
+        'financialStatements',
+        'categories',
+        'dateCurrentYear',
+        'datePreviousYear'
+    ));
+}
 
 }
