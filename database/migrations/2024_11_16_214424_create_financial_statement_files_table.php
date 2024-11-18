@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('company_id')->constrained('companies');
             $table->string('file_path');
+            $table->string('currency')->default('TND');
             $table->date('date');
             $table->timestamps();
         });

@@ -8,6 +8,8 @@ function saveDatatoDB(formData){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data: formData,
+        processData: false,
+        contentType: false,
         success: function() {
             console.log('success')
         },
@@ -32,24 +34,45 @@ $(document).ready(function() {
             if (newIndex < currentIndex) {
                 return true;
             }
-            return $("#financial-form").valid();
-        },
-        onFinishing: function (event, currentIndex) {
-            console.log('finsihing');
             const total_actifs_n_1 = parseFloat(cleanNumber($('#actifs_total_des_actifs_n-1').val().replace(",", "."))) || 0;
             const total_actifs_n = parseFloat(cleanNumber($('#actifs_total_des_actifs_n').val().replace(",", "."))) || 0;
             
             const total_passifs_n_1 = parseFloat(cleanNumber($('#passifs_total_des_capitaux_propres_et_passifs_n-1').val().replace(",", "."))) || 0;
             const total_passifs_n = parseFloat(cleanNumber($('#passifs_total_des_capitaux_propres_et_passifs_n').val().replace(",", "."))) || 0;
+            switch (currentIndex){
+                case 0:
+                    if(!$('#company_name').val() || !$('#current_year').val()){
+                        $('#error-message-step-1').show();
+                        return false
+                    }
+                    break;
+                case 2:
+                    if(total_actifs_n !== total_passifs_n){
+                        alert('veillez verifier le bilan de l\'année courante');
+                        return false
+                    }
+                    else if(total_actifs_n_1 !== total_passifs_n_1){
+                        alert('veuillez verifier le bilan de l\'année précedente');
+                        return false
+                    }
+                    break;
+                case 4:
+                    if(!$('#dropzone-file').val()){
+                        $('#error-message').show();
+                        return false;
+                    }
+                    break;
+            }
 
-            if(total_actifs_n !== total_passifs_n){
-                alert('veillez verifier le bilan de l\'année courante');
+            $('#error-message').hide();
+            return true; 
+        },
+        onFinishing: function (event, currentIndex) {
+            if(!$('#file_input').val()){
+                $('#error-message').show();
+                return false;
             }
-            else if(total_actifs_n_1 !== total_passifs_n_1){
-                alert('veuillez verifier le bilan de l\'année précedente');
-            }else{
-                return $("#financial-form").valid();
-            }
+            return $("#financial-form").valid();
         },
         onFinished: function (event, currentIndex) {
 
@@ -59,24 +82,19 @@ $(document).ready(function() {
                     $(this).data("disabled", true).prop("disabled", false);
                 });
 
-            // Serialize form
-            const formData = $("#financial-form").serialize();
+            var formData = new FormData($("#financial-form")[0])
 
-            // Re-disable the inputs
             $("#financial-form")
                 .find(":disabled[data-disabled]")
                 .prop("disabled", true)
                 .removeData("disabled");
 
             saveDatatoDB(formData)
-            // $("#financial-form").submit();
         },
         onInit: function (event, currentIndex) {
-            // Hide "Précédent" on the first step
             $(".actions a[href='#previous']").hide();
         },
         onStepChanged: function (event, currentIndex, priorIndex) {
-            // Show/Hide "Précédent" button based on the current step
             if (currentIndex === 0) {
                 $(".actions a[href='#previous']").hide();
             } else {

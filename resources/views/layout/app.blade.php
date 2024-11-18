@@ -14,14 +14,12 @@
 
 </head>
 <body class="bg-gray-100">
-
     <!-- Navbar -->
     <nav class="bg-btlGreen text-white shadow-md">
         <div class="container mx-auto px-4 flex justify-between items-center py-4">
             <!-- Logo -->
             <a href="{{ route('financial-statements.fetch_all') }}" class="flex items-center space-x-2">
-                <img src="{{ asset('images/logo-btl.svg') }}" alt="BTL Logo" class="h-8">
-                <span class="text-lg font-bold uppercase">Banque Tuniso-Lybienne</span>
+                <img src="{{ asset('images/logo-btl.png') }}" alt="BTL Logo" class="h-10">
             </a>
 
             <!-- Navigation Links -->

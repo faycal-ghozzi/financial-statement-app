@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class FinancialStatementFile extends Model
 {
+
+    protected $fillable = [
+        'company_id',
+        'file_path',
+        'crrency',
+        'date'
+    ];
+
     public function company()
     {
         return $this->belongsTo(\App\Models\Company::class);

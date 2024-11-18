@@ -51,7 +51,7 @@ class FinancialStatementController extends Controller {
 
         $company = Company::firstOrCreate(['name' => $validatedStatic['company_name']]);
 
-        $this->saveFile($filePath, $company);
+        $this->saveFile($filePath, $company, $validatedStatic['current_year']);
 
         $this->saveData($validatedDynamic, $company, $validatedStatic['current_year']);
 
@@ -72,12 +72,13 @@ class FinancialStatementController extends Controller {
         return $data;
     }
 
-    private function saveFile($filePath, $company)
+    private function saveFile($filePath, $company, $date)
     {
         FinancialStatementFile::create([
             'company_id' => $company->id,
             'file_path' => $filePath,
-            // maybe add currency ?
+            'currency' => 'TND',
+            'date' => $date
         ]);
     }
 
