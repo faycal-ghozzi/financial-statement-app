@@ -25,11 +25,7 @@ return [
     |
     | Next, you may define every authentication guard for your application.
     | Of course, a great default configuration has been defined for you
-    | which utilizes session storage plus the Eloquent user provider.
-    |
-    | All authentication guards have a user provider, which defines how the
-    | users are actually retrieved out of your database or other storage
-    | system used by the application. Typically, Eloquent is utilized.
+    | which utilizes session storage plus the LDAP user provider.
     |
     | Supported: "session"
     |
@@ -38,7 +34,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'ldap', // Matches the provider defined below
         ],
     ],
 
@@ -48,26 +44,23 @@ return [
     |--------------------------------------------------------------------------
     |
     | All authentication guards have a user provider, which defines how the
-    | users are actually retrieved out of your database or other storage
-    | system used by the application. Typically, Eloquent is utilized.
+    | users are actually retrieved from your LDAP directory or other storage
+    | system used by the application.
     |
-    | If you have multiple user tables or models you may configure multiple
-    | providers to represent the model / table. These providers may then
-    | be assigned to any extra authentication guards you have defined.
-    |
-    | Supported: "database", "eloquent"
+    | Supported drivers: "ldap", "database", "eloquent"
     |
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+        'ldap' => [
+            'driver' => 'ldap',
+            'model' => App\Models\User::class, // Your application's User model
         ],
 
+        // Uncomment and use this if you need a database fallback provider:
         // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
+        //     'driver' => 'eloquent',
+        //     'model' => App\Models\User::class,
         // ],
     ],
 
@@ -76,26 +69,18 @@ return [
     | Resetting Passwords
     |--------------------------------------------------------------------------
     |
-    | These configuration options specify the behavior of Laravel's password
-    | reset functionality, including the table utilized for token storage
-    | and the user provider that is invoked to actually retrieve users.
-    |
-    | The expiry time is the number of minutes that each reset token will be
-    | considered valid. This security feature keeps tokens short-lived so
-    | they have less time to be guessed. You may change this as needed.
-    |
-    | The throttle setting is the number of seconds a user must wait before
-    | generating more password reset tokens. This prevents the user from
-    | quickly generating a very large amount of password reset tokens.
+    | These options configure the behavior of password resets. Password resets
+    | are typically not supported with LDAP, as passwords are managed in the
+    | directory. This configuration exists for fallback authentication cases.
     |
     */
 
     'passwords' => [
         'users' => [
-            'provider' => 'users',
+            'provider' => 'ldap',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
-            'expire' => 60,
-            'throttle' => 60,
+            'expire' => 60, // Tokens are valid for 60 minutes
+            'throttle' => 60, // Limit requests to one per minute
         ],
     ],
 
@@ -104,9 +89,8 @@ return [
     | Password Confirmation Timeout
     |--------------------------------------------------------------------------
     |
-    | Here you may define the amount of seconds before a password confirmation
-    | window expires and users are asked to re-enter their password via the
-    | confirmation screen. By default, the timeout lasts for three hours.
+    | The amount of seconds before a password confirmation window expires and
+    | users are asked to re-enter their password. Defaults to 3 hours.
     |
     */
 
