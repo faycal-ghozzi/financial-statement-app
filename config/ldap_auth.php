@@ -1,6 +1,9 @@
 <?php
 
 return [
+
+    'connection' => env('LDAP_CONNECTION', 'default'),
+
     /*
     |--------------------------------------------------------------------------
     | LDAP Authentication Provider
@@ -15,6 +18,11 @@ return [
         'driver' => 'ldap',
     ],
 
+
+    // TODO
+    'model' => App\Models\User::class,
+
+
     /*
     |--------------------------------------------------------------------------
     | Validation Rules
@@ -25,6 +33,7 @@ return [
     |
     */
     'rules' => [
+        // LdapRecord\Laravel\Validation\Rules\DenyTrashed::class,
     ],
 
     /*
@@ -61,7 +70,7 @@ return [
         'windows' => [
             'locate_users_by' => 'samaccountname',
             'server_key' => 'AUTH_USER',
-        ],
+        ]
     ],
 
     /*
@@ -89,6 +98,7 @@ return [
     */
     'login_fallback' => env('LDAP_LOGIN_FALLBACK', false),
 
+
     /*
     |--------------------------------------------------------------------------
     | Sync Attributes
@@ -100,7 +110,6 @@ return [
     'sync_attributes' => [
         'username' => 'samaccountname',
         'name' => 'cn',
-        'role' => 'memberof'
     ],
 
     /*

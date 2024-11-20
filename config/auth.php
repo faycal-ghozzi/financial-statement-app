@@ -14,8 +14,10 @@ return [
     */
 
     'defaults' => [
-        'guard' => env('AUTH_GUARD', 'web'),
-        'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
+        // 'guard' => env('AUTH_GUARD', 'web'),
+        // 'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
+        'guard' => 'web',
+        'passwords' => 'users'
     ],
 
     /*
@@ -34,7 +36,8 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'ldap', // Matches the provider defined below
+            'provider' => 'users', // Matches the provider defined below
+            // 'provider' => 'ldap',
         ],
     ],
 
@@ -64,36 +67,36 @@ return [
         // ],
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Resetting Passwords
-    |--------------------------------------------------------------------------
-    |
-    | These options configure the behavior of password resets. Password resets
-    | are typically not supported with LDAP, as passwords are managed in the
-    | directory. This configuration exists for fallback authentication cases.
-    |
-    */
+    // /*
+    // |--------------------------------------------------------------------------
+    // | Resetting Passwords
+    // |--------------------------------------------------------------------------
+    // |
+    // | These options configure the behavior of password resets. Password resets
+    // | are typically not supported with LDAP, as passwords are managed in the
+    // | directory. This configuration exists for fallback authentication cases.
+    // |
+    // */
 
-    'passwords' => [
-        'users' => [
-            'provider' => 'ldap',
-            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
-            'expire' => 60, // Tokens are valid for 60 minutes
-            'throttle' => 60, // Limit requests to one per minute
-        ],
-    ],
+    // 'passwords' => [
+    //     'users' => [
+    //         'provider' => 'users',
+    //         'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+    //         'expire' => 60, // Tokens are valid for 60 minutes
+    //         'throttle' => 60, // Limit requests to one per minute
+    //     ],
+    // ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Password Confirmation Timeout
-    |--------------------------------------------------------------------------
-    |
-    | The amount of seconds before a password confirmation window expires and
-    | users are asked to re-enter their password. Defaults to 3 hours.
-    |
-    */
+    // /*
+    // |--------------------------------------------------------------------------
+    // | Password Confirmation Timeout
+    // |--------------------------------------------------------------------------
+    // |
+    // | The amount of seconds before a password confirmation window expires and
+    // | users are asked to re-enter their password. Defaults to 3 hours.
+    // |
+    // */
 
-    'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
+    // 'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
 ];

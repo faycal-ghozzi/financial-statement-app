@@ -31,7 +31,6 @@ return [
             'use_tls' => env('LDAP_USE_TLS', false),
             'timeout' => env('LDAP_TIMEOUT', 5),
             'version' => 3, // LDAP version
-            'follow_referrals' => false,
         ],
     ],
 ];

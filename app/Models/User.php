@@ -27,7 +27,6 @@ class User extends Authenticatable
         'objectguid',
         'mail',
         'password',
-        'role',
         'last_seen'
 
     ];
@@ -51,7 +50,6 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
         ];
     }
 }
